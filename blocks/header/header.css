@@ -1,0 +1,37 @@
+.header {
+    /*max-width: 880px;*/
+    height: 74px;
+    margin: 45px 200px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+@media screen and (max-width: 1130px) {
+    .header {
+        margin: 45px 150px 40px;
+    }
+}
+
+@media screen and (max-width: 1060px) {
+    .header {
+        margin: 45px 100px 40px;
+    }
+}
+
+@media screen and (max-width: 870px) {
+    .header {
+        margin: 28px 60px 40px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .header {
+        height: 56px;
+        margin: 28px 0 42px;
+        max-width: 580px;
+        width: 100%;
+        align-self: center;
+    }
+}
