@@ -1,6 +1,6 @@
 # Проект: Место
 
-[Ссылка на Github Pages]()
+[Ссылка на Github Pages](https://ero-sennin9.github.io/mesto-project-bootcamp/)
 
 ## Описание
 
