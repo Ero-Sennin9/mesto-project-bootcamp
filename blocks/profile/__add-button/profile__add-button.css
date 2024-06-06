@@ -1,5 +1,5 @@
 .profile__add-button {
-    all: unset;
+    background-color: unset;
     width: 150px;
     height: 50px;
     box-sizing: border-box;
