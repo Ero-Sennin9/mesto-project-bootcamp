@@ -1,12 +1,12 @@
-.popup {
-    display: flex;
+.cover {
     position: fixed;
+    display: flex;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.9);
     flex-direction: row;
     justify-content: center;
     align-items: center;

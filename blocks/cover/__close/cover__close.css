@@ -1,0 +1,27 @@
+.cover__close {
+    all: unset;
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 32px;
+    height: 32px;
+    background-image: url("../../../images/close.svg");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: opacity 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.cover__close:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 820px) {
+    .cover__close {
+        top: -36px;
+        right: 0;
+        width: 20px;
+        height: 20px;
+    }
+}
