@@ -3,14 +3,22 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-    /*align-self: flex-start;*/
     flex-wrap: wrap;
     max-width: 336px;
+    /*max-width: 336px;*/
+    margin-right: 20px;
+}
+
+@media screen and (max-width: 870px) {
+    .profile__info {
+        max-width: 267px;
+    }
 }
 
 @media screen and (max-width: 700px) {
     .profile__info {
         justify-content: center;
         margin-bottom: 36px;
+        margin-right: 0;
     }
 }

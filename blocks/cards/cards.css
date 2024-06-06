@@ -8,6 +8,12 @@
     padding: 0;
 }
 
+@media screen and (min-width: 1280px) {
+    .cards {
+        grid-template-columns: repeat(3, minmax(250px, 1fr));
+    }
+}
+
 @media screen and (max-width: 1130px) {
     .cards {
         margin: 0 150px 67px;

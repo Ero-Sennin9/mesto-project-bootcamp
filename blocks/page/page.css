@@ -6,4 +6,5 @@
     flex-direction: column;
     align-items: stretch;
     position: relative;
+    min-height: 100vh;
 }
