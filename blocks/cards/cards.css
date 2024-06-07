@@ -10,7 +10,7 @@
 
 @media screen and (min-width: 1280px) {
     .cards {
-        grid-template-columns: repeat(3, minmax(250px, 1fr));
+        width: 880px;
     }
 }
 

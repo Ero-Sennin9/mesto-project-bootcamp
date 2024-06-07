@@ -1,68 +1,135 @@
 // variables for useful usage
 
-let editButton = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
-let cover = document.querySelector('.cover');
-let coverImage = cover.querySelector('.cover__image');
-let coverText = cover.querySelector('.cover__text');
-let coverClose = cover.querySelector('.cover__close');
-let submitButton = popup.querySelector('.popup__button');
-let addButton = document.querySelector('.profile__add-button');
-let name = document.querySelector('.profile__name');
-let description = document.querySelector('.profile__description');
-let closePopup = popup.querySelector('.popup__close');
-let cards = document.querySelector('.cards');
-let inputs = popup.querySelectorAll('.popup__field');
+// popup elements
+const popupEdit = document.querySelector('.popup_type_edit');
+const popupEditButton = popupEdit.querySelector('.popup__button');
+const popupEditInputFirstname = popupEdit.querySelector('.popup__field_type_firstname');
+const popupEditInputDescription = popupEdit.querySelector('.popup__field_type_description');
+const popupEditClose = popupEdit.querySelector('.popup__close');
 
+
+const popupAdd = document.querySelector('.popup_type_add');
+const popupAddButton = popupAdd.querySelector('.popup__button');
+const popupAddInputName = popupAdd.querySelector('.popup__field_type_name');
+const popupAddInputLink = popupAdd.querySelector('.popup__field_type_link');
+const popupAddClose = popupAdd.querySelector('.popup__close');
+
+const popupCover = document.querySelector('.popup_type_image');
+const popupCoverClose = popupCover.querySelector('.popup__close');
+const popupCoverImage = popupCover.querySelector('.popup__image');
+const popupCoverText = popupCover.querySelector('.popup__text');
+
+// main page elements
+const editButton = document.querySelector('.profile__edit-button');
+const addButton = document.querySelector('.profile__add-button');
+const name = document.querySelector('.profile__name');
+const description = document.querySelector('.profile__description');
+const cards = document.querySelector('.cards');
+
+// adding card to page
+
+// adding cover of image
+function addImageHandler(image, url, description) {
+    image.addEventListener('click', function () {
+        popupCoverImage.src = url;
+        popupCoverImage.alt = description;
+        popupCoverText.textContent = description;
+        openPopup(popupCover);
+    });
+}
+
+function createCard(cardInfo) {
+    let cardTemplate = document.querySelector('#card-template').content;
+    let cardItem = cardTemplate.querySelector('.card').cloneNode(true);
+
+    let image = cardItem.querySelector('.card__image');
+    image.src = cardInfo.link;
+    image.alt = cardInfo.name;
+    addImageHandler(image, cardInfo.link, cardInfo.name);
+
+    let text = cardItem.querySelector('.card__text');
+    text.textContent = cardInfo.name;
+
+    let button = cardItem.querySelector('.card__like');
+    addLikeHandler(button);
+
+    let trash = cardItem.querySelector('.card__delete');
+    addDeleteHandler(trash);
+
+    return cardItem;
+}
+
+function addCard(cardInfo) {
+    cards.prepend(createCard(cardInfo));
+}
+
+// submit buttons listeners
+
+popupEditButton.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    name.textContent = popupEditInputFirstname.value;
+    description.textContent = popupEditInputDescription.value;
+    closePopup(popupEdit);
+});
+
+popupAddButton.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    addCard({name: popupAddInputName.value, link: popupAddInputLink.value});
+    closePopup(popupAdd);
+});
 
 // edit popup code
 
-let popupEdit = {
-    title: 'Редактировать профиль',
-    placeholders: ['Имя', 'Описание'],
-    button: 'Сохранить'
-};
-
-let popupAdd = {
-    title: 'Новое место',
-    placeholders: ['Название', 'Ссылка на картинку'],
-    button: 'Создать'
-};
-
-function applyPopup(info) {
-    popup.querySelector('.popup__title').textContent = info.title;
-    for (let ind = 0; ind < inputs.length; ++ind) {
-        inputs[ind].placeholder = info.placeholders[ind];
-    }
-    submitButton.textContent = info.button;
-}
-
-function GetName() {
+function getName() {
     return name.textContent;
 }
 
-function GetDescription() {
+function getDescription() {
     return description.textContent;
 }
 
-function editHandler(svt) {
-    svt.preventDefault();
-    name.textContent = inputs[0].value;
-    description.textContent = inputs[1].value;
-    popup.classList.remove('popup_opened');
+
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            closePopup(popup);
+        }
+    });
 }
 
-editButton.addEventListener('click', function () {
-    applyPopup(popupEdit);
-    inputs[0].value = GetName();
-    inputs[1].value = GetDescription();
-    submitButton.removeEventListener('click', addHandler);
-    submitButton.addEventListener('click', editHandler);
-    popup.classList.add('popup_opened');
+function closePopup(popup) {
+    popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            closePopup(popup);
+        }
+    });
+}
+
+popupEditClose.addEventListener('click', function () {
+    closePopup(popupEdit);
 });
 
-closePopup.addEventListener('click', function () {
-    popup.classList.remove('popup_opened');
+popupAddClose.addEventListener('click', function () {
+    closePopup(popupAdd);
+});
+
+popupCoverClose.addEventListener('click', function () {
+    closePopup(popupCover);
+});
+
+
+editButton.addEventListener('click', function () {
+    popupEditInputFirstname.value = getName();
+    popupEditInputDescription.value = getDescription();
+    openPopup(popupEdit);
+});
+
+addButton.addEventListener('click', function () {
+    popupAddInputName.value = '';
+    popupAddInputLink.value = '';
+    openPopup(popupAdd);
 });
 
 // liking cards code
@@ -110,80 +177,12 @@ const initialCards = [
     }
 ];
 
-// adding cover of image
-function addImageHandler(object, url, description) {
-    object.addEventListener('click', function () {
-        coverImage.src = url;
-        coverText.textContent = description;
-        coverImage.alt = description;
-        cover.classList.add('cover_opened');
-    });
-}
-
-coverClose.addEventListener('click', function () {
-    cover.classList.remove('cover_opened');
-});
-
-
 // adding default cards to html
-
-function addCard(cardInfo) {
-    // creating card node
-    let card = document.createElement('article');
-    card.classList.add('card');
-
-    let image = document.createElement('img');
-    image.classList.add('card__image');
-    image.src = cardInfo.link;
-    image.alt = cardInfo.name;
-
-    addImageHandler(image, cardInfo.link, cardInfo.name);
-
-    let info = document.createElement('div');
-    info.classList.add('card__info');
-
-    let text = document.createElement('h2');
-    text.classList.add('card__text');
-    text.textContent = cardInfo.name;
-
-    let button = document.createElement('button');
-    button.classList.add('card__like');
-    button.type = 'button';
-    addLikeHandler(button);
-
-    let trash = document.createElement('button');
-    trash.classList.add('card__delete');
-    trash.type = 'button';
-    addDeleteHandler(trash);
-
-    // constructing and adding card
-    info.append(text, button);
-    card.append(image, info, trash);
-    cards.prepend(card);
-}
 
 for (let ind = 0; ind < initialCards.length; ++ind) {
     let currInfo = initialCards[ind];
     addCard(currInfo);
 }
-
-// adding card code
-
-function addHandler(svt) {
-    svt.preventDefault();
-    addCard({name: inputs[0].value, link: inputs[1].value});
-    popup.classList.remove('popup_opened');
-}
-
-addButton.addEventListener('click', function () {
-    applyPopup(popupAdd);
-    inputs[0].value = '';
-    inputs[1].value = '';
-    submitButton.removeEventListener('click', editHandler);
-    submitButton.addEventListener('click', addHandler);
-    popup.classList.add('popup_opened');
-});
-
 
 
 

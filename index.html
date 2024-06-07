@@ -24,26 +24,46 @@
         </section>
 
         <section class="cards">
-
+            <template id="card-template">
+                <article class="card"><img class="card__image"
+                                           src="#"
+                                           alt="Картинка">
+                    <div class="card__info">
+                        <h2 class="card__text">Описание</h2>
+                        <button class="card__like" type="button"></button>
+                    </div>
+                    <button class="card__delete" type="button"></button>
+                </article>
+            </template>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyright">&copy; 2024 Mesto Russia</p>
     </footer>
-    <section class="popup">
+    <section class="popup popup_type_edit">
         <form class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
-            <input type="text" value="Жак-Ив Кусто" class="popup__field">
-            <input type="text" value="Исследователь океана" class="popup__field">
+            <input type="text" value="Жак-Ив Кусто" class="popup__field popup__field_type_firstname" placeholder="Имя">
+            <input type="text" value="Исследователь океана" class="popup__field popup__field_type_description"
+                   placeholder="Описание">
             <button type="submit" class="popup__button">Сохранить</button>
             <button type="button" class="popup__close"></button>
         </form>
     </section>
-    <section class="cover">
-        <div class="cover__main">
-            <img href="#" alt="изображение" class="cover__image">
-            <p class="cover__text">Описание</p>
-            <button type="button" class="cover__close"></button>
+    <section class="popup popup_type_add">
+        <form class="popup__container">
+            <h2 class="popup__title">Новое место</h2>
+            <input type="text" value="" class="popup__field popup__field_type_name" placeholder="Название">
+            <input type="text" value="" class="popup__field popup__field_type_link" placeholder="Ссылка на картинку">
+            <button type="submit" class="popup__button">Создать</button>
+            <button type="button" class="popup__close"></button>
+        </form>
+    </section>
+    <section class="popup popup_type_image">
+        <div class="popup__main">
+            <img href="#" alt="изображение" class="popup__image">
+            <p class="popup__text">Описание</p>
+            <button type="button" class="popup__close"></button>
         </div>
     </section>
 </div>
